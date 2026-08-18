@@ -143,7 +143,13 @@ export default function Home() {
           </div>
         </div>
       </header>
-
+miniapps/
+├── public/
+│   ├── bag1.jpg
+│   ├── bag2.jpg
+│   └── bag3.jpg  <-- อัปโหลดหรือลากไฟล์ภาพมาไว้ตรงนี้
+└── app/
+    └── page.tsx
 
       {/* ================= HERO ================= */}
       <section className="overflow-hidden bg-[#fdf0f3]">

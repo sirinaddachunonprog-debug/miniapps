@@ -1,6 +1,3 @@
-
-
-          
 import Image from "next/image";
 
 export default function Home() {
@@ -67,10 +64,10 @@ export default function Home() {
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
-              <button className="bg-black text-white text-sm font-medium px-7 py-3.5 rounded-full hover:bg-gray-800 transition-colors">
+              <button className="bg-black text-white text-sm font-medium px-7 py-3.5 rounded-full hover:bg-gray-800 active:scale-95 transition-all">
                 ช้อปคอลเลกชัน
               </button>
-              <button className="bg-white text-gray-800 border border-gray-200 text-sm font-medium px-7 py-3.5 rounded-full hover:bg-gray-50 transition-colors">
+              <button className="bg-white text-gray-800 border border-gray-200 text-sm font-medium px-7 py-3.5 rounded-full hover:bg-gray-50 active:scale-95 transition-all">
                 ดูสินค้า
               </button>
             </div>
@@ -95,7 +92,7 @@ export default function Home() {
           {/* Right Hero Image */}
           <div className="relative w-full h-[380px] sm:h-[480px] lg:h-[540px] rounded-3xl overflow-hidden bg-pink-100/50">
             <Image
-              src="/hero-bag.jpg" // วางไฟล์รูปภาพกระเป๋าหลักไว้ในโฟลเดอร์ public/hero-bag.jpg
+              src="/hero-bag.jpg"
               alt="Pink Fashion Bag"
               fill
               className="object-cover object-center"

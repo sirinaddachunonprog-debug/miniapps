@@ -1,531 +1,159 @@
+
+
+          
+
+
+ 
+
+     
+
+
+ "use client";
+
+import { useState } from "react";
 import Image from "next/image";
 
-const products = [
-  {
-    name: "Elegant Leather Bag",
-    price: "฿1,990",
-    oldPrice: "฿2,490",
-    image: "/bag1.jpg",
-    tag: "BEST SELLER",
-  },
-  {
-    name: "Luxury Fashion Tote",
-    price: "฿2,490",
-    oldPrice: "฿2,990",
-    image: "/bag2.jpg",
-    tag: "NEW",
-  },
-  {import Image from "next/image";
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  oldPrice?: number;
+  image: string;
+  tag?: string;
+}
 
-const products = [
+const initialProducts: Product[] = [
   {
+    id: 1,
     name: "Elegant Leather Bag",
-    price: "฿1,990",
-    oldPrice: "฿2,490",
+    price: 1990,
+    oldPrice: 2490,
     image: "/bag1.jpg",
     tag: "BEST SELLER",
   },
   {
+    id: 2,
     name: "Luxury Fashion Tote",
-    price: "฿2,490",
-    oldPrice: "฿2,990",
+    price: 2490,
+    oldPrice: 2990,
     image: "/bag2.jpg",
     tag: "NEW",
   },
   {
+    id: 3,
     name: "Mini Crossbody Bag",
-    price: "฿1,590",
-    oldPrice: "",
-    image: "/bag3.jpg",
-    // ใส่ข้อมูลต่อด้านล่าง...
-  },
-];
-    name: "Mini Crossbody Bag",
-    price: "฿1,590",
-    oldPrice: "",
+    price: 1590,
     image: "/bag3.jpg",
     tag: "POPULAR",
   },
 ];
 
-const categories = [
-  {
-    name: "กระเป๋าถือ",
-    image: "/category-handbag.jpg",
-  },
-  {
-    name: "กระเป๋าสะพาย",
-    image: "/category-shoulder.jpg",
-  },
-  {
-    name: "กระเป๋าสตางค์",
-    image: "/category-wallet.jpg",
-  },
-  {
-    name: "Luxury Bag",
-    image: "/category-luxury.jpg",
-  },
-];
-
 export default function Home() {
+  const [cart, setCart] = useState<Product[]>([]);
+
+  // ฟังก์ชันเพิ่มสินค้าลงตะกร้า
+  const addToCart = (product: Product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  };
+
   return (
-    <main className="min-h-screen bg-[#fffdfb] text-gray-900">
-
-      {/* ================= NAVBAR ================= */}
-      <header className="sticky top-0 z-50 border-b border-gray-100 bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
-
-          {/* Logo */}
+    <div className="min-h-screen bg-gray-50 text-gray-800">
+      {/* Header / Navbar */}
+      <header className="sticky top-0 z-50 bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold tracking-[0.2em]">
-              BAGÉRA
-            </h1>
-            <p className="text-[9px] tracking-[0.35em] text-gray-400">
-              FASHION COLLECTION
-            </p>
+            <h1 className="text-2xl font-bold tracking-wider text-black">BAGÉRA</h1>
+            <p className="text-xs text-gray-400 tracking-widest">FASHION COLLECTION</p>
           </div>
 
-          {/* Menu */}
-          <nav className="hidden items-center gap-9 text-sm md:flex">
-            <a className="cursor-pointer font-medium hover:text-pink-500 transition">
-              หน้าแรก
-            </a>
-
-            <a className="cursor-pointer text-gray-600 hover:text-pink-500 transition">
-              สินค้า
-            </a>
-
-            <a className="cursor-pointer text-gray-600 hover:text-pink-500 transition">
-              โปรโมชั่น
-            </a>
-
-            <a className="cursor-pointer text-gray-600 hover:text-pink-500 transition">
-              เกี่ยวกับเรา
-            </a>
-
-            <a className="cursor-pointer text-gray-600 hover:text-pink-500 transition">
-              ติดต่อเรา
-            </a>
+          <nav className="hidden md:flex space-x-6 text-sm font-medium text-gray-600">
+            <a href="#" className="hover:text-black">หน้าแรก</a>
+            <a href="#" className="hover:text-black">สินค้า</a>
+            <a href="#" className="hover:text-black">โปรโมชั่น</a>
+            <a href="#" className="hover:text-black">เกี่ยวกับเรา</a>
+            <a href="#" className="hover:text-black">ติดต่อเรา</a>
           </nav>
 
-          {/* Actions */}
-          <div className="flex items-center gap-4">
-
-            <button
-              aria-label="ค้นหาสินค้า"
-              className="text-xl transition hover:scale-110"
-            >
-              🔍
+          <div className="flex items-center space-x-4">
+            {/* Search Icon */}
+            <button className="p-2 hover:bg-gray-100 rounded-full">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
             </button>
 
-            <button
-              aria-label="รายการโปรด"
-              className="hidden text-xl transition hover:scale-110 sm:block"
-            >
-              ♡
-            </button>
-
-            <button
-              aria-label="ตะกร้าสินค้า"
-              className="relative text-xl transition hover:scale-110"
-            >
-              🛒
-
-              <span className="absolute -right-2 -top-2 flex h-4 w-4 items-center justify-center rounded-full bg-pink-500 text-[9px] text-white">
-                2
-              </span>
-            </button>
-
-            <button className="text-xl md:hidden">
-              ☰
-            </button>
-
+            {/* Cart Icon with Counter */}
+            <div className="relative">
+              <button className="p-2 hover:bg-gray-100 rounded-full">
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z" />
+                </svg>
+              </button>
+              {cart.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                  {cart.length}
+                </span>
+              )}
+            </div>
           </div>
         </div>
       </header>
-miniapps/
-├── public/
-│   ├── bag1.jpg
-│   ├── bag2.jpg
-│   └── bag3.jpg  <-- อัปโหลดหรือลากไฟล์ภาพมาไว้ตรงนี้
-└── app/
-    └── page.tsx
 
-      {/* ================= HERO ================= */}
-      <section className="overflow-hidden bg-[#fdf0f3]">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-5 py-14 md:grid-cols-2 md:px-8 md:py-20">
-
-          {/* Hero Text */}
-          <div className="order-2 md:order-1">
-
-            <span className="inline-block rounded-full bg-white px-4 py-2 text-xs font-semibold tracking-widest text-pink-500 shadow-sm">
-              NEW COLLECTION 2026
-            </span>
-
-            <h2 className="mt-6 text-4xl font-bold leading-tight md:text-6xl">
-              กระเป๋าที่ทำให้
-              <br />
-              <span className="text-pink-500">
-                ทุกลุคดูพิเศษ
-              </span>
-            </h2>
-
-            <p className="mt-6 max-w-lg leading-7 text-gray-600">
-              ค้นพบคอลเลกชันกระเป๋าแฟชั่นดีไซน์พรีเมียม
-              ที่ออกแบบมาเพื่อเติมเต็มสไตล์ของคุณ
-              ในทุกวันและทุกโอกาส
-            </p>
-
-            <div className="mt-8 flex flex-wrap gap-4">
-
-              <button className="rounded-full bg-black px-8 py-3.5 font-medium text-white shadow-lg transition hover:-translate-y-1 hover:bg-gray-800">
-                ช้อปคอลเลกชัน
-              </button>
-
-              <button className="rounded-full border border-gray-300 bg-white px-8 py-3.5 font-medium transition hover:border-black">
-                ดูสินค้า
-              </button>
-
-            </div>
-
-            {/* Trust */}
-            <div className="mt-10 flex gap-8 text-sm text-gray-500">
-              <div>
-                <strong className="block text-lg text-black">
-                  1,000+
-                </strong>
-                ลูกค้าของเรา
-              </div>
-
-              <div>
-                <strong className="block text-lg text-black">
-                  4.9/5
-                </strong>
-                คะแนนรีวิว
-              </div>
-
-              <div>
-                <strong className="block text-lg text-black">
-                  Free
-                </strong>
-                จัดส่งฟรี
-              </div>
-            </div>
-
-          </div>
-
-
-          {/* Hero Image */}
-          <div className="order-1 flex justify-center md:order-2">
-
-            <div className="relative">
-
-              <div className="absolute -right-5 top-8 h-24 w-24 rounded-full bg-pink-200/60 blur-2xl" />
-
-              <div className="absolute -bottom-5 -left-5 h-32 w-32 rounded-full bg-white/80 blur-2xl" />
-
-              <Image
-                src="/hero-bag.png"
-                width={600}
-                height={600}
-                priority
-                alt="BAGÉRA Fashion Bag"
-                className="relative z-10 h-auto max-w-full drop-shadow-2xl transition duration-500 hover:scale-105"
-              />
-
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-
-      {/* ================= CATEGORY ================= */}
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8">
-
-        <div className="mb-8 flex items-end justify-between">
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 py-10">
+        <div className="flex justify-between items-end mb-8">
           <div>
-            <p className="text-sm font-medium tracking-widest text-pink-500">
-              SHOP BY CATEGORY
-            </p>
-
-            <h2 className="mt-2 text-3xl font-bold">
-              เลือกสไตล์ที่ใช่สำหรับคุณ
-            </h2>
+            <span className="text-xs font-semibold tracking-wider text-pink-500 uppercase">OUR PRODUCTS</span>
+            <h2 className="text-3xl font-bold text-gray-900 mt-1">สินค้าแนะนำ</h2>
           </div>
-
-          <button className="hidden text-sm font-medium underline underline-offset-4 md:block">
-            ดูทั้งหมด →
-          </button>
+          <a href="#" className="text-sm font-semibold text-gray-700 hover:underline">
+            ดูสินค้าทั้งหมด &rarr;
+          </a>
         </div>
 
-
-        <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
-
-          {categories.map((category) => (
-            <div
-              key={category.name}
-              className="group relative overflow-hidden rounded-3xl bg-gray-100"
-            >
-
-              <Image
-                src={category.image}
-                width={500}
-                height={500}
-                alt={category.name}
-                className="aspect-square w-full object-cover transition duration-500 group-hover:scale-105"
-              />
-
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-5 pt-16">
-                <h3 className="font-semibold text-white">
-                  {category.name}
-                </h3>
-
-                <p className="mt-1 text-xs text-white/80">
-                  ดูสินค้า →
-                </p>
-              </div>
-
-            </div>
-          ))}
-
-        </div>
-
-      </section>
-
-
-      {/* ================= PROMOTION ================= */}
-      <section className="mx-auto max-w-7xl px-5 md:px-8">
-
-        <div className="overflow-hidden rounded-[2rem] bg-black px-7 py-10 text-white md:flex md:items-center md:justify-between md:px-14">
-
-          <div>
-            <p className="text-sm font-medium tracking-widest text-pink-400">
-              SPECIAL OFFER
-            </p>
-
-            <h2 className="mt-3 text-3xl font-bold md:text-4xl">
-              ลดสูงสุด 30%
-            </h2>
-
-            <p className="mt-3 text-sm text-gray-400">
-              สำหรับกระเป๋าคอลเลกชันพิเศษ
-            </p>
-          </div>
-
-          <button className="mt-7 rounded-full bg-white px-7 py-3 font-medium text-black transition hover:bg-pink-100 md:mt-0">
-            ช้อปโปรโมชั่น
-          </button>
-
-        </div>
-
-      </section>
-
-
-      {/* ================= PRODUCTS ================= */}
-      <section className="mx-auto max-w-7xl px-5 py-16 md:px-8">
-
-        <div className="mb-8 flex items-end justify-between">
-
-          <div>
-            <p className="text-sm font-medium tracking-widest text-pink-500">
-              OUR PRODUCTS
-            </p>
-
-            <h2 className="mt-2 text-3xl font-bold">
-              สินค้าแนะนำ
-            </h2>
-          </div>
-
-          <button className="hidden text-sm font-medium underline underline-offset-4 md:block">
-            ดูสินค้าทั้งหมด →
-          </button>
-
-        </div>
-
-
-        <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-3">
-
-          {products.map((product) => (
-
-            <article
-              key={product.name}
-              className="group overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-gray-100 transition duration-300 hover:-translate-y-1 hover:shadow-xl"
-            >
-
-              {/* Image */}
-              <div className="relative overflow-hidden bg-[#f7f5f3]">
-
+        {/* Product Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {initialProducts.map((product) => (
+            <div key={product.id} className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+              {/* Product Image */}
+              <div className="relative h-80 w-full bg-gray-100">
+                {product.tag && (
+                  <span className="absolute top-4 left-4 z-10 bg-white text-xs font-bold px-3 py-1 rounded-md shadow-sm">
+                    {product.tag}
+                  </span>
+                )}
                 <Image
                   src={product.image}
-                  width={600}
-                  height={600}
                   alt={product.name}
-                  className="aspect-square w-full object-cover transition duration-500 group-hover:scale-105"
+                  fill
+                  className="object-cover"
                 />
-
-                {/* Tag */}
-                <span className="absolute left-4 top-4 rounded-full bg-white px-3 py-1.5 text-[10px] font-bold tracking-wider shadow-sm">
-                  {product.tag}
-                </span>
-
-                {/* Favorite */}
-                <button
-                  aria-label={`เพิ่ม ${product.name} ในรายการโปรด`}
-                  className="absolute right-4 top-4 flex h-10 w-10 items-center justify-center rounded-full bg-white text-xl shadow-sm transition hover:bg-pink-500 hover:text-white"
-                >
-                  ♡
-                </button>
-
               </div>
 
-
-              {/* Content */}
+              {/* Product Info */}
               <div className="p-5">
-
-                <p className="text-xs text-gray-400">
-                  BAGÉRA COLLECTION
-                </p>
-
-                <h3 className="mt-2 text-lg font-semibold">
-                  {product.name}
-                </h3>
-
-
-                <div className="mt-3 flex items-center gap-2">
-
-                  <span className="text-lg font-bold text-pink-500">
-                    {product.price}
-                  </span>
-
+                <span className="text-xs font-semibold text-gray-400 tracking-wider block mb-1">BAGÉRA COLLECTION</span>
+                <h3 className="text-lg font-bold text-gray-800 mb-2">{product.name}</h3>
+                
+                <div className="flex items-baseline space-x-2 mb-4">
+                  <span className="text-xl font-bold text-pink-500">฿{product.price.toLocaleString()}</span>
                   {product.oldPrice && (
-                    <span className="text-sm text-gray-400 line-through">
-                      {product.oldPrice}
-                    </span>
+                    <span className="text-sm text-gray-400 line-through">฿{product.oldPrice.toLocaleString()}</span>
                   )}
-
                 </div>
 
-
-                <button className="mt-5 w-full rounded-full bg-black py-3 text-sm font-medium text-white transition hover:bg-pink-500">
+                {/* Add to Cart Button */}
+                <button
+                  onClick={() => addToCart(product)}
+                  className="w-full bg-black text-white py-2.5 rounded-xl font-semibold text-sm hover:bg-gray-800 transition-colors"
+                >
                   เพิ่มลงตะกร้า
                 </button>
-
               </div>
-
-            </article>
-
+            </div>
           ))}
-
         </div>
-
-      </section>
-
-
-      {/* ================= NEWSLETTER ================= */}
-      <section className="bg-[#fdf0f3] px-5 py-16">
-
-        <div className="mx-auto max-w-2xl text-center">
-
-          <p className="text-sm font-medium tracking-widest text-pink-500">
-            STAY UPDATED
-          </p>
-
-          <h2 className="mt-3 text-3xl font-bold">
-            รับข่าวสารและโปรโมชั่นพิเศษ
-          </h2>
-
-          <p className="mt-3 text-gray-600">
-            สมัครสมาชิกเพื่อรับสิทธิพิเศษและคอลเลกชันใหม่ก่อนใคร
-          </p>
-
-
-          <div className="mx-auto mt-7 flex max-w-md overflow-hidden rounded-full bg-white p-1 shadow-sm">
-
-            <input
-              type="email"
-              placeholder="อีเมลของคุณ"
-              className="min-w-0 flex-1 bg-transparent px-5 outline-none"
-            />
-
-            <button className="rounded-full bg-black px-6 py-3 text-sm font-medium text-white">
-              สมัครสมาชิก
-            </button>
-
-          </div>
-
-        </div>
-
-      </section>
-
-
-      {/* ================= FOOTER ================= */}
-      <footer className="bg-black px-5 py-12 text-white">
-
-        <div className="mx-auto grid max-w-7xl gap-10 md:grid-cols-4">
-
-          <div>
-            <h2 className="text-xl font-bold tracking-[0.2em]">
-              BAGÉRA
-            </h2>
-
-            <p className="mt-4 text-sm leading-6 text-gray-400">
-              Fashion bags designed to complete
-              your everyday style.
-            </p>
-          </div>
-
-
-          <div>
-            <h3 className="font-semibold">
-              เมนู
-            </h3>
-
-            <div className="mt-4 space-y-3 text-sm text-gray-400">
-              <p>หน้าแรก</p>
-              <p>สินค้า</p>
-              <p>โปรโมชั่น</p>
-              <p>เกี่ยวกับเรา</p>
-            </div>
-          </div>
-
-
-          <div>
-            <h3 className="font-semibold">
-              บริการลูกค้า
-            </h3>
-
-            <div className="mt-4 space-y-3 text-sm text-gray-400">
-              <p>ติดตามคำสั่งซื้อ</p>
-              <p>การจัดส่ง</p>
-              <p>การคืนสินค้า</p>
-              <p>คำถามที่พบบ่อย</p>
-            </div>
-          </div>
-
-
-          <div>
-            <h3 className="font-semibold">
-              ติดต่อเรา
-            </h3>
-
-            <div className="mt-4 space-y-3 text-sm text-gray-400">
-              <p>📞 02-123-4567</p>
-              <p>✉️ hello@bagera.com</p>
-              <p>📍 Bangkok, Thailand</p>
-            </div>
-          </div>
-
-        </div>
-
-
-        <div className="mx-auto mt-10 max-w-7xl border-t border-gray-800 pt-6 text-center text-xs text-gray-500">
-          © 2026 BAGÉRA Fashion Store. All rights reserved.
-        </div>
-
-      </footer>
-
-    </main>
+      </main>
+    </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import Link from 'next/link';
 import { Search, ShoppingBag, Menu } from 'lucide-react';import React from 'react';
 import { Search, ShoppingBag } from 'lucide-react';
 
@@ -108,7 +108,43 @@ export default function HomePage() {
 
           <div className="flex items-center gap-4 pt-2">
             <button className="bg-black text-white px-6 py-3 rounded-full text-sm font-medium hover:bg-gray-800 transition">
+              ช้อปคอลเลกชันimport Image from "next/image";
+import Link from "next/link"; // 👈 เพิ่มไว้บนสุด
+
+export default function Home() {
+  return (
+    <main className="...">
+      {/* โค้ดส่วน Navbar และข้อความด้านบนของคุณ ... */}
+      
+      <div className="...">
+        <h1 className="...">กระเป๋าที่ทำให้<br/>ทุกลุคดูพิเศษ</h1>
+        <p className="...">ค้นพบคอลเลกชันกระเป๋าดีไซน์พรีเมียม...</p>
+
+        {/* 👇 2. หาจุดที่มีปุ่ม 2 ปุ่มนี้ แล้วแก้โดยเอา <Link> มาครอบ */}
+        <div className="flex gap-4 mt-8 ..."> 
+          
+          <Link href="/products">
+            <button className="bg-black text-white px-6 py-3 rounded-full font-medium ...">
               ช้อปคอลเลกชัน
+            </button>
+          </Link>
+
+          <Link href="/products">
+            <button className="border border-gray-300 text-gray-800 px-6 py-3 rounded-full font-medium ...">
+              ดูสินค้า
+            </button>
+          </Link>
+
+        </div>
+        {/* 👆 สิ้นสุดส่วนปุ่ม */}
+
+        {/* โค้ดส่วน 1,000+ ลูกค้าของเรา ... */}
+      </div>
+
+      {/* โค้ดส่วนรูปภาพกระเป๋าสีชมพู ... */}
+    </main>
+  );
+}
             </button>
             <button className="bg-white text-gray-800 border border-gray-200 px-6 py-3 rounded-full text-sm font-medium hover:bg-gray-50 transition">
               ดูสินค้า

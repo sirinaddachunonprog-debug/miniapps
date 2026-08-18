@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from 'next/link';
 import { Search, ShoppingBag, Menu } from 'lucide-react';import React from 'react';
 import { Search, ShoppingBag } from 'lucide-react';
 

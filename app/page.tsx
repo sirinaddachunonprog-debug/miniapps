@@ -15,7 +15,31 @@ const products = [
     image: "/bag2.jpg",
     tag: "NEW",
   },
+  {import Image from "next/image";
+
+const products = [
   {
+    name: "Elegant Leather Bag",
+    price: "฿1,990",
+    oldPrice: "฿2,490",
+    image: "/bag1.jpg",
+    tag: "BEST SELLER",
+  },
+  {
+    name: "Luxury Fashion Tote",
+    price: "฿2,490",
+    oldPrice: "฿2,990",
+    image: "/bag2.jpg",
+    tag: "NEW",
+  },
+  {
+    name: "Mini Crossbody Bag",
+    price: "฿1,590",
+    oldPrice: "",
+    image: "/bag3.jpg",
+    // ใส่ข้อมูลต่อด้านล่าง...
+  },
+];
     name: "Mini Crossbody Bag",
     price: "฿1,590",
     oldPrice: "",
